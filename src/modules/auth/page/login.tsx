@@ -20,6 +20,7 @@ export function LoginPage() {
 
   return (
     <div className="main-wrap login-wrap">
+      <h3 style={{textAlign: 'center'}}>Authenticate</h3>
       <Auth
         supabaseClient={supabase}
         appearance={{theme: ThemeSupa}}

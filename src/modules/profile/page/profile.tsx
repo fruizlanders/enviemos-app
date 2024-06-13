@@ -36,6 +36,7 @@ export function ProfilePage() {
 
   return (
     <div className="main-wrap">
+      <h3 style={{textAlign: 'center'}}>Profile</h3>
       <form onSubmit={onSubmit} className="profile-form">
         <label htmlFor="email">Email</label>
         <input
