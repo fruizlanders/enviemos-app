@@ -5,13 +5,12 @@ import {ThemeSupa} from '@supabase/auth-ui-shared';
 import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-import {useSession} from '../../../supabase/auth/hooks.tsx';
-import {useSupabase} from '../../../supabase/client/hooks.tsx';
+import {useSession} from '../../../supabase/auth';
+import {supabase} from '../../../supabase/client';
 
 export function LoginPage() {
   const {session} = useSession();
   const navigate = useNavigate();
-  const supabase = useSupabase();
 
   useEffect(() => {
     if (session) {

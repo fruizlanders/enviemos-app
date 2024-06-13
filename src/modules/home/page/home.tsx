@@ -1,3 +1,3 @@
 export function HomePage() {
-  return <div>hola</div>;
+  return <div className="main-wrap">Hello world</div>;
 }

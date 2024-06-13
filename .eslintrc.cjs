@@ -12,10 +12,6 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', '@typescript-eslint', 'simple-import-sort'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     '@typescript-eslint/consistent-type-imports': 'error',
@@ -23,7 +19,6 @@ module.exports = {
       'error',
       {'vars': 'all', 'args': 'none', 'ignoreRestSiblings': false}
     ],
-    'no-console': 'warn',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-var-requires': 'off'
   },
