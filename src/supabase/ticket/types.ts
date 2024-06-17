@@ -7,6 +7,7 @@ export type Ticket = {
   ticket_state_id: number;
   ticket_state: TicketState;
   created_at: string;
+  name: string;
 };
 
 export type Bank = {

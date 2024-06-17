@@ -13,8 +13,7 @@ export function useTickets(userId?: string): Ticket[] | undefined {
         .select(
           `
           *,
-          bank (*),
-          ticket_state (*)
+          bank (*)
         `
         )
         .eq('user_id', userId)

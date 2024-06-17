@@ -12,15 +12,21 @@ export function TicketPage() {
 
   const [bank, setBank] = useState<number>(1);
   const [account, setAccount] = useState<string>('');
+  const [name, setName] = useState<string>('');
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     createTicket({
       bankId: bank,
       account,
-    }).then((ticket) => {
-      console.log('created', ticket);
-      window.location.reload();
-    });
+      name,
+    })
+      .then((ticket) => {
+        console.log('created', ticket);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error('Error creating ticket:', error);
+      });
 
     e.preventDefault();
   }
@@ -30,7 +36,7 @@ export function TicketPage() {
       <h3 style={{textAlign: 'center'}}>Create tickets</h3>
 
       <form onSubmit={onSubmit} className="ticket-form">
-        <label htmlFor="bank">Bank</label>
+        <label htmlFor="bank">Banco</label>
         <select
           name="bank"
           onChange={(e) => setBank(parseInt(e.target.value, 10))}
@@ -44,12 +50,21 @@ export function TicketPage() {
           ))}
         </select>
         <br />
-        <label htmlFor="email">Account Number</label>
+        <label htmlFor="email">Numero de cuenta</label>
         <input
           type="text"
           name="account"
           value={account}
           onChange={(e) => setAccount(e.target.value)}
+          required
+        />
+        <br />
+        <label htmlFor="name">Codigo</label>
+        <input
+          type="text"
+          name="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           required
         />
         <br />
@@ -60,23 +75,21 @@ export function TicketPage() {
       <br />
       <hr />
       <br />
-      <h3>Past tickets</h3>
+      <h3>Codigos creados</h3>
       <table className="tickets">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Bank</th>
-            <th>State</th>
-            <th>Date</th>
+            <th>Nombre</th>
+            <th>Banco</th>
+            <th>Número de cuenta</th>
           </tr>
         </thead>
         <tbody>
           {tickets?.map((t) => (
             <tr key={t.id}>
-              <td>{t.id}</td>
+              <td>{t.name}</td>
               <td>{t.bank.name}</td>
-              <td>{t.ticket_state.name}</td>
-              <td>{new Date(t.created_at).toLocaleDateString()}</td>
+              <td>{t.account_number}</td>
             </tr>
           ))}
         </tbody>

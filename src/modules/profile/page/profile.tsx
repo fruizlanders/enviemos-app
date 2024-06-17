@@ -12,11 +12,15 @@ export function ProfilePage() {
 
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
+  const [dni, setDNI] = useState<string>('');
+  const [cellphone, setCellphone] = useState<string>('');
 
   useEffect(() => {
     if (profile) {
       setFirstName(profile.first_name);
       setLastName(profile.last_name);
+      setDNI(profile.dni || '');
+      setCellphone(profile.cellphone || '');
     }
   }, [profile]);
 
@@ -26,6 +30,8 @@ export function ProfilePage() {
         id: session?.user.id,
         firstName,
         lastName,
+        dni: dni || '',
+        cellphone: cellphone || '',
       }).then((profile) => {
         console.log('saved', profile);
       });
@@ -38,7 +44,7 @@ export function ProfilePage() {
     <div className="main-wrap">
       <h3 style={{textAlign: 'center'}}>Profile</h3>
       <form onSubmit={onSubmit} className="profile-form">
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">Correo</label>
         <input
           type="text"
           name="email"
@@ -47,7 +53,7 @@ export function ProfilePage() {
           readOnly
         />
         <br />
-        <label htmlFor="firstName">First Name</label>
+        <label htmlFor="firstName">Nombres</label>
         <input
           type="text"
           name="firstName"
@@ -56,13 +62,31 @@ export function ProfilePage() {
           onChange={(e) => setFirstName(e.target.value)}
         />
         <br />
-        <label htmlFor="lastName">Last Name</label>
+        <label htmlFor="lastName">Apellidos</label>
         <input
           type="text"
           name="lastName"
           required
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
+        />
+        <br />
+        <label htmlFor="dni">DNI</label>
+        <input
+          type="text"
+          name="dni"
+          required
+          value={dni}
+          onChange={(e) => setDNI(e.target.value)}
+        />
+        <br />
+        <label htmlFor="cellphone">Celular</label>
+        <input
+          type="text"
+          name="cellphone"
+          required
+          value={cellphone}
+          onChange={(e) => setCellphone(e.target.value)}
         />
         <br />
         <br />
