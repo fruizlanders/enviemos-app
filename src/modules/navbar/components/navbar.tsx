@@ -1,12 +1,11 @@
 import './navbar.css';
+import {MouseEvent} from 'react';
+import {logo} from '../../../assets';
+import { signOut, useSession } from "../../../supabase/auth";
 
-import type {MouseEvent} from 'react';
-
-import {signOut, useSession} from '../../../supabase/auth';
 
 export function Navbar() {
   const {session} = useSession();
-
   async function logout(e: MouseEvent<HTMLAnchorElement>) {
     await signOut();
     e.preventDefault();
@@ -14,9 +13,11 @@ export function Navbar() {
   }
 
   return (
-    <nav className="navbar">
+
+    <nav className="w-full flex py-6 justify-between items-center navbar">
+      <img src={logo} alt="logo" className="w-[100px] h-[52px] " />
       <a href="/">Enviemos</a>
-      {!session && <a href="/login">Login</a>}
+      {!session && <a href="/">Inicio</a>}
       {session && <a href="/profile">Profile</a>}
       {session && <a href="/ticket">Tickets</a>}
       {session && (
@@ -24,6 +25,10 @@ export function Navbar() {
           Logout
         </a>
       )}
+
+
+
+
     </nav>
   );
 }

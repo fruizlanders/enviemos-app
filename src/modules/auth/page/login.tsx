@@ -14,7 +14,7 @@ export function LoginPage() {
 
   useEffect(() => {
     if (session) {
-      navigate('/');
+      navigate('/web-app');
     }
   }, [navigate, session]);
 
