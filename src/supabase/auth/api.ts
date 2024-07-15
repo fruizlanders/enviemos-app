@@ -7,6 +7,7 @@ export type SaveProfileRequest = {
   lastName: string;
   dni: string;
   cellphone: string;
+  email: string;
 };
 
 export async function signOut() {
@@ -23,10 +24,18 @@ export async function saveProfile({
   lastName,
   dni,
   cellphone,
+  email,
 }: SaveProfileRequest): Promise<Profile> {
   const {data, error} = await supabase
     .from('user_data')
-    .upsert({id, first_name: firstName, last_name: lastName, dni, cellphone})
+    .upsert({
+      id,
+      first_name: firstName,
+      last_name: lastName,
+      dni,
+      cellphone,
+      email,
+    })
     .select()
     .single();
 

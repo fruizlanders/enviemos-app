@@ -37,9 +37,10 @@ export function useProfile(userId?: string): Profile | undefined {
         .select('*')
         .eq('id', userId)
         .single()
-        .then(({data, error}) => {
+        .then(({data, error} = {data: null, error: null}) => {
           if (!error) {
-            setProfile(data);
+            // @ts-ignore
+            setProfile(data as Profile);
           } else {
             console.log('error', error);
           }

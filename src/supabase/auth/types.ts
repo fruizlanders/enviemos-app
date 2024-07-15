@@ -4,4 +4,5 @@ export type Profile = {
   last_name: string;
   dni: string;
   cellphone: string;
+  email: string;
 };

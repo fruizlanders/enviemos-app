@@ -1,25 +1,27 @@
 import {useEffect, useState} from 'react';
 
 import {supabase} from '../client';
-import type {Bank, Ticket} from './types.ts';
+import type {Bank, Commerce} from './types.ts';
 
-export function useTickets(userId?: string): Ticket[] | undefined {
-  const [tickets, setTickets] = useState<Ticket[]>([]);
-
+export function useCommerces(userId?: string): Commerce[] | undefined {
+  const [commerces, setCommerces] = useState<Commerce[]>([]);
   useEffect(() => {
     if (userId) {
       supabase
-        .from('ticket')
+        .from('commerce')
         .select(
           `
           *,
-          bank (*)
+          bank (*),
+          commerce_state (*)
         `
         )
         .eq('user_id', userId)
-        .then(({data, error}) => {
+        .then(({data, error} = {data: null, error: null}) => {
           if (!error) {
-            setTickets(data);
+            console.log(data);
+            // @ts-ignore
+            setCommerces(data as Commerce);
           } else {
             console.log('error', error);
           }
@@ -27,7 +29,7 @@ export function useTickets(userId?: string): Ticket[] | undefined {
     }
   }, [userId]);
 
-  return tickets;
+  return commerces;
 }
 
 export function useBanks(): Bank[] | undefined {
@@ -38,9 +40,11 @@ export function useBanks(): Bank[] | undefined {
       supabase
         .from('bank')
         .select('*')
-        .then(({data, error}) => {
+        .then(({data, error}= { data: null, error: null }) => {
           if (!error) {
-            setBanks(data);
+            console.log(data);
+            // @ts-ignore
+            setBanks(data as Bank);
           } else {
             console.log('error', error);
           }

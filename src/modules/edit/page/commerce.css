@@ -1,4 +1,4 @@
-form.ticket-form {
+form.commerce-form {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
@@ -35,7 +35,7 @@ form.ticket-form {
 }
 
 
-table.tickets {
+table.commerces {
   width: 100%;
   max-width: 500px;
   text-align: center;
