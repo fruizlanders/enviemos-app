@@ -82,11 +82,12 @@ export function ProfilePage() {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    navigate('/bienvenida');
     setToggle(false);
   };
 
   return (
-    <div className="main-wrap" onClick={handleCloseModal}>
+    <div className="main-wrap" >
       <div className={`${styles.flexCenter} ${styles.padding1}`}>
         <div className={`${styles.padding1} w-full sm:w-2/3 md:w-1/2 lg:w-1/3`}>
           <h3 className="text-center text-white text-2xl font-bold mb-4">
