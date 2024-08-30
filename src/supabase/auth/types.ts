@@ -6,3 +6,8 @@ export type Profile = {
   cellphone: string;
   email: string;
 };
+
+export type Admin = {
+  id: string;
+  profile: Profile;
+};

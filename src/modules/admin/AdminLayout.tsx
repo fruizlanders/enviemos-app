@@ -1,11 +1,13 @@
-import {Outlet} from 'react-router-dom';
+import {Outlet, useNavigate} from 'react-router-dom';
 
 import styles from '../../style.ts';
+import {useAdmin} from '../../supabase/auth'; // Importa tu nuevo hook
 import {SupabaseProvider} from '../../supabase/client';
 import {NavbarProvider} from '../navbar/components/NavbarContext.tsx';
 import Heros from './../home/Heros.tsx';
 import {Navbar} from './components/Navbar.tsx';
 import {Sidebar} from './components/Sidebar.tsx';
+import {useEffect} from 'react';
 
 export const WelcomeAdmin = () => {
   return (
@@ -20,6 +22,17 @@ export const WelcomeAdmin = () => {
 };
 
 export const AdminLayout = () => {
+  const {isAdmin} = useAdmin();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isAdmin === false) {
+      //navigate('/'); // Redirect non-admin users to the home page or any other appropriate page
+    }
+  }, [isAdmin, navigate]);
+
+  if (isAdmin === undefined) {
+    return <div>Loading...</div>; // Show loading while checking admin status
+  }
   return (
     <SupabaseProvider>
       <NavbarProvider>
@@ -31,9 +44,11 @@ export const AdminLayout = () => {
             </div>
           </div>
           <div className={` ${styles.flexCenter}`}>
-            <div className={`${styles.boxWidth}`}>
-              <Outlet />
-            </div>
+            {isAdmin && (
+              <div className={`${styles.boxWidth}`}>
+                <Outlet />
+              </div>
+            )}
           </div>
         </div>
       </NavbarProvider>

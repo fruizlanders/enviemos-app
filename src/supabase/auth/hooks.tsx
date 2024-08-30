@@ -50,3 +50,41 @@ export function useProfile(userId?: string): Profile | undefined {
 
   return profile;
 }
+
+export function useAdmin(): {isAdmin: boolean | undefined} {
+  const {session} = useSession();
+  const [isAdmin, setIsAdmin] = useState<boolean | undefined>(undefined);
+
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      if (session?.user.id) {
+        try {
+          const {data, error} = await supabase
+            .from('user_admin')
+            .select('*')
+            .eq('user_data_id', session.user.id)
+            .single();
+
+          if (data) {
+            setIsAdmin(true);
+          } else {
+            setIsAdmin(false);
+          }
+
+          if (error) {
+            console.error('Error checking admin status:', error);
+          }
+        } catch (err) {
+          console.error('Unexpected error:', err);
+          setIsAdmin(false);
+        }
+      } else {
+        setIsAdmin(false); // Handle the case where the session or user ID is not available
+      }
+    };
+
+    checkAdminStatus();
+  }, [session?.user.id]);
+
+  return {isAdmin};
+}
